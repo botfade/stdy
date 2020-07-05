@@ -1,0 +1,8 @@
+github  : bootfade
+git     :
+
+// GITHUB
+Fork  : menduplikat repo orang lain ke akun github kita (online)
+Clone : mendownload repo orang lain ke komputer kita (ofline)
+
+// GIT
