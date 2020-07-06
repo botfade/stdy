@@ -6,3 +6,4 @@ Fork  : menduplikat repo orang lain ke akun github kita (online)
 Clone : mendownload repo orang lain ke komputer kita (ofline)
 
 // GIT
+web : git-scm.com // Git Source Code Management (git-scm)
