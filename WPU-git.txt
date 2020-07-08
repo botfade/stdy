@@ -1,9 +1,44 @@
 github  : bootfade
 git     :
 
+// Version Control System (VCS)
+- merekam perubahan file 
+- modified
+- staged
+- commited
+
++ konfigurasi awal git :
+$ git config --list
+
 // GITHUB
 Fork  : menduplikat repo orang lain ke akun github kita (online)
 Clone : mendownload repo orang lain ke komputer kita (ofline)
 
 // GIT
 web : git-scm.com // Git Source Code Management (git-scm)
+
+1. buat repository
+- cd ke folder yang diinginkan
+- $ git intit                               // akan membuat folder .git (hiddden)
+- $ git add -a (all)/(namafile)             // menyimpan perubahan
+- $ git commit -a "pesan/catatan perubahan"   // commit perubahan
+- $ git log                                   // melihat histoory repository
+
+2. pull & push to remote (github)
+- sebelumnya config username dan email git lokal harus sesuai dg github
+- cd ke repo di lokal yang diinginkan
+- $ git remote              // untuk melihat origin :v
+- $ git pull origin master  // menarik commit dalam repo yang diinginkan dari remote
+- $ git push origin master  // menguplod commit ke remote
+= terkadang akan terjadi merge conflict ketika push, karena perbedaan konten file dalam file yang sama
+- maka lakukan pull - edit mana yang dipakai - push kembali
+
+3. menyalin repository
+- menyalin repo dari lokal :
+  git clone <url lokal>
+  - cd ke FOLDER yang diinginkan ada repo salinan nya
+  - git clone C:/folder/balala
+- menyalin repo dari remote :
+  git clone <url>
+  - cd ke FOLDER yang diinginkan ada repo salinan nya
+  - git clone http://github.com/akofoalbnflivnauero.git
