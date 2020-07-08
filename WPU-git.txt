@@ -1,6 +1,10 @@
 github  : bootfade
 git     :
 
+// DAFTAR PERTANYAAN
+- fetch
+- graph
+
 // Version Control System (VCS)
 - merekam perubahan file 
 - modified
@@ -17,28 +21,72 @@ Clone : mendownload repo orang lain ke komputer kita (ofline)
 // GIT
 web : git-scm.com // Git Source Code Management (git-scm)
 
-1. buat repository
+# 3 AREA DALAM REPO GIT
+1. WORKING TREE
+2. STAGGING AREA (dalam .git) (setelah di git add)
+3. HISTORY (dalam .git) (setelah di git commit)
+
+1. MAKE REPOSITORY
 - cd ke folder yang diinginkan
-- $ git intit                               // akan membuat folder .git (hiddden)
-- $ git add -a (all)/(namafile)             // menyimpan perubahan
-- $ git commit -a "pesan/catatan perubahan"   // commit perubahan
+- $ git init                                  // insis=alisasi folder menjadirepo dan akan membuat folder .git (hiddden)
+- $ git add -a (all)/(namafile)               // menyimpan perubahan / menambah file ke staging area
+- $ git commit -a -m "catatan perubahan"      // commit perubahan
 - $ git log                                   // melihat histoory repository
 
-2. pull & push to remote (github)
-- sebelumnya config username dan email git lokal harus sesuai dg github
-- cd ke repo di lokal yang diinginkan
-- $ git remote              // untuk melihat origin :v
-- $ git pull origin master  // menarik commit dalam repo yang diinginkan dari remote
-- $ git push origin master  // menguplod commit ke remote
-= terkadang akan terjadi merge conflict ketika push, karena perbedaan konten file dalam file yang sama
-- maka lakukan pull - edit mana yang dipakai - push kembali
 
-3. menyalin repository
+2. CHECKOUT : mengembalikan keadaan repo pada suatu commit sebelumnya
+- git checkout t4b32(5digit hash commit) -- namafile.ext
+  - git checkout 95751 -- gitaja.txt // harus ada spasi antara -- dan namafile
+
+3. unstaged something from stagging area 
+- git restore --stagged gitaja.txt
+
+4. GIT REMOTE
+- duplikat repo/file yang ada ditempat lain bisa internet (github) / komputer server dll
+
+- menghubungkan repo di lokal ke github
+  1. membuat repo di lokal
+  2. membuat repo di github dengan nama sama tanpa README.md
+  3. $ git remote add origin <url github>
+  4. $ git push -u origin master 
+
+-menghubungkan repo github ke lokal
+  1. $ git remote              // untuk melihat origin :v
+  2. $ git pull origin master  // menarik commit dalam repo yang diinginkan dari remote
+  3. $ git push origin master  // menguplod commit ke remote
+  
+- terkadang akan terjadi merge conflict ketika push, karena perbedaan konten file dalam file yang sama
+  >> maka lakukan pull - edit mana yang dipakai - push kembali
+
+5. MENYALIN REPOSITORY
 - menyalin repo dari lokal :
   git clone <url lokal>
   - cd ke FOLDER yang diinginkan ada repo salinan nya
   - git clone C:/folder/balala
 - menyalin repo dari remote :
-  git clone <url>
+  git clone <url https>
   - cd ke FOLDER yang diinginkan ada repo salinan nya
-  - git clone http://github.com/akofoalbnflivnauero.git
+  - git clone https://github.com/akofoalbnflivnauero.git
+  
+6. GITHUB PAGES
+    - web domain GRATIS     // statis (html, css, js)
+    
+7. MULTIPLE REMOTES
+    - fork from acc2
+    - git clone fro acc1
+    - git remote add <another remote (acc2)> <link acc2>
+    - gt fetch <remote acc2>
+    - ...
+    - ...
+    - merged dll
+   
+8. REMOTE BRANCH
+    - 
+  
+9. .gitignore
+    - file berisi file yang dikecualikan ketika di add
+    - buat file .gitignore
+    - isi dengan nama file yang tidak perlu diikutsertakan ketika commit
+    
+10. GIT REBASE
+ -UPLURR
