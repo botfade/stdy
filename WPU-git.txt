@@ -4,6 +4,7 @@ git     :
 // DAFTAR PERTANYAAN
 - fetch
 - graph
+  - $ git log --all --decorate --oneline -- graph
 
 // Version Control System (VCS)
 - merekam perubahan file 
@@ -15,8 +16,34 @@ git     :
 $ git config --list
 
 // GITHUB
-Fork  : menduplikat repo orang lain ke akun github kita (online)
-Clone : mendownload repo orang lain ke komputer kita (ofline)
++ FORK
+- menduplikat repo orang lain ke akun github kita (online)
+ 
++ CLONE
+- mendownload repo orang lain ke komputer kita (ofline)
+
++ BRANCH
+- jalur development bebas dari sebuah commit
+- membuat git branch
+- membuat snapshot tanpa mengganggu master branch
+- membuat fitur percobaan baru dalam sebuah projek
+- beberapa orang mengerjakan di repo yang sama
+- cabang
+- penyebab rawan conflict merge
+- delete
+  - git branch -d/-D <nama branch>
+  - $ git branch -d staff
+
++ PULL REQUEST
+- meminta pemiliki repo untuk menarik perubahan/fitur yang telah kita buat
+
++ MERGE
+- menggabungkan 2 buah branch
+  - fast-forward merging
+  - three way merge / commit merge / recursive
+- git merge <branch yg mau di merge dengan master>
+  - $ git merge dosen (fast forward)
+  - $ git merge staff (three way) >> buat keterangan commit di editor >> close editor >> done
 
 // GIT
 web : git-scm.com // Git Source Code Management (git-scm)
@@ -34,9 +61,11 @@ web : git-scm.com // Git Source Code Management (git-scm)
 - $ git log                                   // melihat histoory repository
 
 
-2. CHECKOUT : mengembalikan keadaan repo pada suatu commit sebelumnya
+2. CHECKOUT : mengembalikan keadaan repo pada suatu commit sebelumnya / pindah branch / pindah commit
 - git checkout t4b32(5digit hash commit) -- namafile.ext
   - git checkout 95751 -- gitaja.txt // harus ada spasi antara -- dan namafile
+  - git checkout <nama branch>
+  - git checkout dosen
 
 3. unstaged something from stagging area 
 - git restore --stagged gitaja.txt
