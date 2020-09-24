@@ -1,0 +1,98 @@
+css = cascading style sheets
+- jangan campur konten html dengan style css
+
+
+#== ATURAN STYLING
+- embed :
+<style>
+	selector { property:value; }
+</style> 
+
+- inline :
+<p style="property:value;">...</p>
+
+- external :
+<link rel="stylesheet" href="namafile.css">
+
+$ namafile.css :
+	// selector { property:value; }
+
+	h1{
+		color:blue;
+		font-family:arial;
+	}
+
+#== FONT
+- font-style(opt) font-variant(opt) font-weight(opt) font-size(wjb)/line-height(opt) font-family(wjb)		// SHORTHAND HARUS URUT
+
+#== TEXT
+color		nama, #hexa, rgb(r,g,b)
+text-align	left,right,center, justify
+text-indent	px
+text decoration	underline,overline,line-trough
+text-transform	upercase,lowercase,capitalize
+letter-spacing	px
+word-spacing	px
+
+#== BACKGROUND
+background-color
+background-image
+background-position
+background-repeat
+background : lightgreen url(bg.png) top left no-repeat
+// NGGAHRSURUT
+
+#== SELECTOR
+grouping : koma
+h1, h2 {
+	color : green;
+}
+nested tag : spasi
+ul li a {
+	color : black;
+}
+id : pager(#) , satu elemen tdk bisa lebih dr satu id 
+#id{
+	color : orange;
+}
+class : titik(.), satu elemen bisa lebih dr satu class
+.p2 {
+	color : red; 
+}
+campuran :
+p.p2 {
+	font-size : 20px;
+}
+
+#== PSEUDO-CLASS (:)
+a. link
+.hello:link/hover/active/visited {
+	color : purple;
+}
+
+b. posisi element (child2an)
+li:nth-child(3/2n/2n-1/odd) a {
+	color : pink;
+}
+
+c. posisi type element
+p:first/last-of-type {
+color : yellow;
+}
+
+#== INHERIT
+a {
+	color : inherit;
+}
+
+#== SPECIFICITY
+- setiap selector memiliki bobot yang berbeda
+- bobot merepresentasikan seberapa spesifik elemen tersebut
+- css akan mengeksekusi selector yang memiliki bobot lebih tinggi
+
+- elemen html 	1		satuan
+- class 		10		puluan
+- id 			100		ratusan
+- inline 		1000	ribuan
+
+

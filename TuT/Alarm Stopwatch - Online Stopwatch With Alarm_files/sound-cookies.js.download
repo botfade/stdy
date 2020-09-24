@@ -1,0 +1,38 @@
+var allowedSounds=["alien-ship","angry-monkey","marching-robots","zombie","belch-burp","heavy-metal","police-car","rooster","harp-strumming","cuckoo-clock","woman-screaming","nuclear-warning","train-whistle","bird-song","foghorn","cat-meowing","dog-barking","cats-dogs","falling-bomb","crying-baby","applause","military-trumpet"];var sound;function isInArray(value,array)
+{return array.indexOf(value)>-1;}
+function toTitleCase(str)
+{return str.replace(/\b[\w']+\b/g,function(txt){return txt.charAt(0).toUpperCase()+txt.substr(1).toLowerCase();});}
+function randomAlarm()
+{return allowedSounds[Math.floor(Math.random()*allowedSounds.length)];}
+function GetSoundCookie(name)
+{var arg=name+"=";var alen=arg.length;var clen=document.cookie.length;var i=0;while(i<clen){var j=i+alen;if(document.cookie.substring(i,j)==arg)
+return getSoundCookieVal(j);i=document.cookie.indexOf(" ",i)+1;if(i==0)break;}
+return null;}
+function SetSoundCookie(name,value)
+{var argv=SetSoundCookie.arguments;var argc=SetSoundCookie.arguments.length;var expires=(argc>2)?argv[2]:null;var path=null;var domain=null;var secure=(argc>5)?argv[5]:false;document.cookie=name+"="+escape(value)+
+((expires==null)?"":("; expires="+expires.toGMTString()))+
+("; path=/")+
+("; domain=.onlineclock.net")+
+((secure==true)?"; secure":"");}
+function DeleteCookie(name)
+{var exp=new Date();exp.setTime(exp.getTime()-1);var cval=GetSoundCookie(name);document.cookie=name+"="+cval+"; expires="+exp.toGMTString();}
+var expDays=365;var exp=new Date();exp.setTime(exp.getTime()+(expDays*24*60*60*1000));function saveSound()
+{var sound=GetSoundCookie('sound');if(sound==null)
+{SetSoundCookie('sound',document.soundForm.soundInput.value);document.getElementById('chosenSound').innerHTML="You've successfully saved your Alarm Sound to <span id='confirmName'>"+toTitleCase(document.soundForm.soundInput.value)+"</span>";return 1}
+else
+{var newSound=document.soundForm.soundInput.value;}
+DeleteCookie('sound');SetSoundCookie('sound',newSound,exp);document.getElementById('chosenSound').innerHTML="You've successfully saved your Alarm Sound to <span id='confirmName'>"+toTitleCase(newSound)+"</span>";}
+function getCurrentSoundForDisplay()
+{var sound=GetSoundCookie('sound');if(sound==null)
+{document.getElementById('chosenSound').innerHTML="Online Clock currently has no custom Alarm Sound saved for you.";return 1}
+else
+{DeleteCookie('sound');SetSoundCookie('sound',sound,exp);document.getElementById('chosenSound').innerHTML="Online Clock currently has this Alarm Sound saved for you: <span id='confirmName'>"+toTitleCase(sound)+"</span>";}}
+function getCurrentSoundForAlarm()
+{var sound=GetSoundCookie('sound');if(sound==null)
+{return ""}
+else{DeleteCookie('sound');SetSoundCookie('sound',sound,exp);return sound;}}
+function getSoundCookieVal(offset)
+{var endstr=document.cookie.indexOf(";",offset);if(endstr==-1)
+endstr=document.cookie.length;return unescape(document.cookie.substring(offset,endstr));}
+function doConfirmDelete()
+{doDelete=confirm('Are you SURE you want to reset? (This cannot be undone.)');if(doDelete){DeleteCookie('sound');window.location.href="//onlineclock.net";}}

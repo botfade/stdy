@@ -1,0 +1,255 @@
+qmv6=true;
+
+/* START: BROWSER SNIFFER */
+var doAltAlarm = 0;
+var isFirefoxALT = false;
+var isSafari = false;
+//see: http://www.javascriptkit.com/javatutors/navigator.shtml
+if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent))
+{ //ANY VERSION OF FF
+	isFirefoxALT = true;
+}
+var isSafari =  /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+function detectAltBrowser() 
+{
+	if( (isFirefoxALT == true) || (isSafari == true) )
+	{
+		doAltAlarm = 1;
+	}
+	//if it's not one of our exception browsers, use the old alarm system
+	else
+	{
+		doAltAlarm = 0;
+	}
+}
+detectAltBrowser() ;
+/* END: BROWSER SNIFFER */
+
+/* START: NEW ALARM STUFF */
+//plays a quiet mp3 upon select menu onChange (user interaction)
+var silence = new Howl({
+  src: ["//stopwatch.onlineclock.net/audio/silence.mp3"],
+  format: ["mp3"],
+  loop: true,
+  volume: 0.2,
+  onplayerror: function() {
+    silence.once('unlock', function() {
+      silence.play();
+    });
+  }
+});
+//will turn off the silent.mp3 again once it's been played
+function makeSilentAgain(){
+//safari needs to have the silent mp3 file playing continuously! otherwise no alarm when tab doesn't have focus!
+	if( (isSafari == false) ) {
+		silence.pause();
+	}
+}
+//plays 'silent' mp3 file
+function playQuietly()
+{  
+    //howler: check to make sure alarm not already playing or it sounds ugly!
+    if(silence.playing() == false)
+    {
+	    silence.play();
+		//NO NEED TO SILENCE IT FOR MAX 60 SECONDS. LET IT PLAY!
+		//setTimeout(makeSilentAgain,11000);
+	}
+}
+//main alarm-playing/showing function
+function playAlarm()
+{              
+	if( (0) ) //provides an alarm if internet connection is lost (default alarm sound)!
+	{
+		var alarmDivHTML = "<div id=\"alarmPlayingDiv\" style=\"display:block\"><p><br><br></p><center>";
+		alarmDivHTML = alarmDivHTML + "<a href=\"//stopwatch.onlineclock.net/alarm/off.html\" style=\"text-decoration:none;\" title=\"Click to turn Alarm OFF !\"><div style=\"font-size:24px;font-weight:700;background-color:#ff0000;color:#000000;padding:24px;\"><br>ALARM OFF</div></a>";
+		alarmDivHTML = alarmDivHTML + "</center></div>";
+			
+		document.getElementById("alarmStopwatchDiv").innerHTML = alarmDivHTML;
+		
+		topLeft.style.display = "none";
+		topRight.style.display = "none"; 
+		
+		var defaultAlarm = new Howl({
+		  src: ["./beep.mp3"],
+		  format: ["mp3"],
+		  loop: true,
+		  volume: 100.0
+		});
+		  
+	     //howler: check to make sure alarm not already playing or it sounds ugly!
+	     if(defaultAlarm.playing() == false)
+	     {
+	        defaultAlarm.play();
+	     }
+		 
+		 //try to bring the alarm to the foreground
+		 window.focus();
+	}
+	else //default: old alarm setting (chrome and company)!
+	{
+		window.location.href= "./index.html"
+	}
+
+}
+/* END: NEW ALARM STUFF */
+
+var alarmTime = 0;
+
+function changeFontSize(size)
+{
+	//document.getElementById('startstopbutton').style.fontSize=size+"px";
+	//document.getElementById('splitbutton').style.fontSize=size+"px";
+	document.getElementById('disp').style.fontSize=size;
+	//document.getElementById('disp').style.height=document.getElementById('startstopbutton').style.height;
+	//document.getElementById('resetbutton').style.fontSize=size+"px";
+	//document.getElementById('split').style.fontSize=size+"px";
+}
+function changeBackground(color)
+{
+	document.bgColor=color;
+	document.getElementById('disp').style.backgroundColor=color;
+}
+function removeUnderline(linknumber)
+{
+var linkArray = [];
+linkArray[0] = "lsmall";
+linkArray[1] = "lmedium";
+linkArray[2] = "llarge";
+linkArray[3] = "lxlarge";
+
+	for (i = 0; i <4; i++)
+	{
+		if(i==linknumber)
+		{
+			document.getElementById(linkArray[i]).style.textDecoration = "none";
+			document.getElementById(linkArray[i]).style.fontWeight = "normal";
+		}
+		else
+		{
+			document.getElementById(linkArray[i]).style.textDecoration = "underline";
+			document.getElementById(linkArray[i]).style.fontWeight = "bold";
+		}
+	}
+}
+function removeUnderline2(linknumber)
+{
+var linkArray2 = [];
+linkArray2[4] = "lblue";
+linkArray2[5] = "lblack";
+linkArray2[6] = "lsilver";
+linkArray2[7] = "lgreen";
+linkArray2[8] = "lorange";
+
+	for (i = 4; i <9; i++)
+	{
+		if(i==linknumber)
+		{
+			document.getElementById(linkArray2[i]).style.textDecoration = "none";
+			document.getElementById(linkArray2[i]).style.fontWeight = "normal";
+		}
+		else
+		{
+			document.getElementById(linkArray2[i]).style.textDecoration = "underline";
+			document.getElementById(linkArray2[i]).style.fontWeight = "bold";
+		}
+	}
+}
+/*stopwatch start*/
+// 0/1 = start/end
+// 2 = state
+// 3 = length, ms
+// 4 = timer
+// 5 = epoch
+// 6 = disp el
+// 7 = split count
+var tmr=[0, 0, 0, 0, 0, 0, 0, 1];
+var firstsplitflag = 0;
+var splittime;
+
+function stopstart() {
+
+	tmr[tmr[2]]=(new Date()).valueOf();
+	tmr[2]=1-tmr[2];
+
+	if (0==tmr[2]) {
+		clearInterval(tmr[4]);
+		tmr[3]+=tmr[1]-tmr[0];
+		document.getElementById("startstopbutton").value="START";
+		document.getElementById('split').innerHTML+=
+			(tmr[7]++)+' Stop: '+format(tmr[1]-tmr[0])+'<br>';
+		tmr[4]=tmr[1]=tmr[0]=0;
+		disp();
+		firstsplitflag = 0;
+	} else {
+		document.getElementById("startstopbutton").value="STOP";
+		tmr[4]=setInterval(disp,1);
+	}
+}
+function dosplit(){
+		if(0!==tmr[2])
+		{
+		document.getElementById('split').innerHTML+=
+			(tmr[7]++)+' Split: '+format(tmr[1]-tmr[0])+'<br>';
+		}
+}
+function reset_it() {
+	if (tmr[2]) stopstart();
+	tmr[4]=tmr[3]=tmr[2]=tmr[1]=tmr[0]=0;
+	disp();
+	document.getElementById('split').innerHTML='';
+	tmr[7]=1;
+}
+
+function updateAlarmTime()
+{
+//remember that everything is counted in milliseconds
+var hour1 = Math.abs(document.forms[1].alarmhour1.value)*10*6*10*6*10*1000;
+var hour2 = Math.abs(document.forms[1].alarmhour2.value)*6*10*6*10*1000;
+var minute1 = Math.abs(document.forms[1].alarmminute1.value)*10*6*10*1000;
+var minute2 = Math.abs(document.forms[1].alarmminute2.value)*6*10*1000;
+var second1 = Math.abs(document.forms[1].alarmsecond1.value)*10*1000;
+var second2 = Math.abs(document.forms[1].alarmsecond2.value)*1000;
+var second_10th = Math.abs(document.forms[1].alarmsecond_10th.value)*100;
+var second_100th = Math.abs(document.forms[1].alarmsecond_100th.value)*10;
+var second_1000th = Math.abs(document.forms[1].alarmsecond_1000th.value);
+
+alarmTime = Math.abs(hour1 + hour2 + minute1 + minute2 + second1 + second2 + second_10th + second_100th + second_1000th);
+
+//use this for testing! - it shows you the value of the alarm in milliseconds
+//window.alert("alarmTime: " + Math.abs(alarmTime) + "");
+}
+
+function disp() {
+	if (tmr[2]) tmr[1]=(new Date()).valueOf();
+	
+	if( (alarmTime != 0) && ( (tmr[3]+tmr[1]-tmr[0]) >= alarmTime ) )
+	{
+		//reset_it();
+		clearInterval(tmr[4]);
+		
+		//use this for testing! - it shows the value of the alarm time in milliseconds vs. the value of the counter in milliseconds
+		//window.alert("alarmTime: " + alarmTime + " counter: " + (tmr[3]+tmr[1]-tmr[0]) + "");
+		//go to alarm:
+		//document.location.href="//stopwatch.onlineclock.net/alarm/alarm.html";
+		return playAlarm();
+	}
+	//this actually updates the display
+	tmr[6].value=format(tmr[3]+tmr[1]-tmr[0]); 
+
+}
+function format(ms) {
+	var d=new Date(ms+tmr[5]).toString()
+		.replace(/.*([0-9][0-9]:[0-9][0-9]:[0-9][0-9]).*/, '$1');
+	var x=String(ms%1000);
+	while (x.length<3) x='0'+x;
+	d+='.'+x;
+	return d;
+}
+function load() {
+	tmr[5]=new Date(1970, 1, 1, 0, 0, 0, 0).valueOf();
+	tmr[6]=document.getElementById('disp');
+
+	disp();
+}

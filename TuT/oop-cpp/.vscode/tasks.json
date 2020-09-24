@@ -1,0 +1,93 @@
+{
+   
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "COMPILE to OBJ",
+            "type": "shell",
+
+            // // MAC & LINUX
+            // "command": "clang++",
+            // "args":[
+            //     "-std=c++17",
+            //     "-stdlib=libc++",
+            //     "${file}",
+            //     "-c",
+            //     "-o",
+            //     "./bin/objects/${fileBasenameNoExtension}.o",
+            // ]
+
+            // WINDOWS
+            "command":"g++",
+            "args":[
+                "-std=c++17",
+                "${file}",
+                "-c",
+                "-o",
+                "./bin/objects/${fileBasenameNoExtension}.o",
+            ]
+        },
+        {
+            "label": "BUILD to APP",
+            "type":"shell",
+
+            // // MAC & LINUX
+            // "command": "clang++",
+            // "args":[
+            //     "-std=c++17",
+            //     "-stdlib=libc++",
+            //     "./bin/objects/**.o",
+            //     "-o",
+            //     "./bin/app.out",
+            // ]
+
+            // WINDOWS
+            "command":"g++",
+            "args":[
+                "-std=c++17",
+                "./bin/objects/**.o",
+                "-o",
+                "./bin/app.exe",
+            ]
+        },
+        {
+            "label": "COMPILE to APP",
+            "type": "shell",
+
+            // // MAC & LINUX
+            // "command": "clang++",
+            // "args": [
+            //     "-std=c++17",
+            //     "-stdlib=libc++",
+            //     "./src/**.cpp",
+            //     "-o",
+            //     "./bin/app.out",
+            // ]
+
+            // WINDOWS
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "./src/**.cpp",
+                "-o",
+                "./bin/app.exe",
+            ]
+        },
+        {
+            "label": "COMPILE to RUN",
+            "type":"shell",
+
+            // // MAC & LINUX
+            // "command":"./bin/app.out",
+
+            // WINDOWS
+            "command":"./bin/app.exe",
+            "dependsOn":["COMPILE to APP"],
+
+            "group": {
+                "kind":"build",
+                "isDefault":true
+            }
+        }
+    ]
+}

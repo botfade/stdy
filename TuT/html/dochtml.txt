@@ -1,0 +1,16 @@
+HTML = HyperText markup leanguage
+
+<!DOCTYPE html>
+<html>
+  <head>
+   <title>
+   </title>
+  </head>
+  <body>
+    <br>
+    <p>INI PARAGRAF</p>
+  </body>
+</html>
+
+<tag property="value">...</tag>		// property="value" adalah attribute
+

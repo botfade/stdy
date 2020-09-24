@@ -1,0 +1,120 @@
+! == CSS LAYOUTING
+
+##= DISPLAY
++ tag div   untuk mengelompokkan elemen2 html lain  display : block;
++ tag span  untuk mengelompokkan teks               display : inline;
+
+1. INLINE
+    > elemen html yang scr default tidak menambhakn baris baru ketika dibuat
+    > lebar dan tinggi elemennya sebesar konten ynag ad didalamnya
+    > elemen tinggi dan lebar elemen inline tidak dapat diatur
+    > margin dan padding hanya memengaruhi padding secara horizontal tidak verrtikal
+    > ex. span, a, ...
+
+2. INLINE-BLOCK
+    > dapat diatur tinggi dan lebarnya
+    > a {
+            display : inline-block;
+        }
+    >
+
+3. BLOCK
+    > elemen html yang secara default menambahkan baris baru ketika dibuat
+    > jika tidak diatur lebarnya, akan memnuhi browser/elemen parentnya
+    > tinggi dan lebar dapat diatur
+    > didalam elemen block dapat menyimpan tag dengan elemen inline, inline-block, block 
+    > ex. div, h1, h2, p, ul, li, ...
+
+4. NONE
+    > menghilangkan tampilan suatu elemen dari halaman
+
++ MENGUBAH perilaku display suatu elemen
+    .navigasi li {        // default dipalay block
+        display : inline;
+    }
+
+#== DIMENSI
++ width & height
+    > satuan : px (absoulte), % (relative terhadap elemen parentnya)
+    > biasakan mengubah width saja. karena height akan mengikuti contentnya
+
+#== OVERFLOW
++ mengatur perilaku bagian elemen yang melebihi ukuran dimensi elemenya
++ ex.   div{
+            width : 200px;
+            height : 200px;
+            overflow : auto/visible/hidden/scroll;
+        }
+1. VISIBLE
+    - default
+2. AUTO
+    - menambahkan scrol JIKA ele men tidak cukup
+3. HIDDEN
+    - menghilangkan bagian elemen yang keluar parentntya
+4. SCROLL
+    - pasti menampilkan scrol walaupun elemen cukup
+
+#== BOX MODEL
++ setiap elemen dalam sebuah halaman berada dalam sebuah box 
++ ukuran/dimensi box tersebut bisa diatur (display : block/inline-block;)
++ CSS BOX MODEL mendefinisikan kotak yang dihasilkan oleh sebuah elemen , lalu menampilkan sesuai format visual nya.
+
+1. MARGIN   : area transparan disekitar kotak (diluar border)
+    - TIDAK MEMNGARUHI DIMENSI BOX
+    - cara pakai
+        margin-top : 20px;
+        ...
+    - overlapping margin
+        jika 2 margin bertemu hanya akan ditampilkan yang paling besar
+        ...
+    - negative margin
+        menambah margin kearah berlawanan 
+        margin-left : -100px;
+        ...
+    - auto
+        memberi margin setengah dari elemen parent nya
+        harus berpasangan atas bawah / kanan kiri
+        margin-top : auto;
+        margin-bottom : auto;
+        ...
+    - shorthand
+        - margin : 50px;                // semua 50 px
+        - margin : 50px 20px;           // atasbawah 50 ; kanan kiri 20
+        - margin : 50px 20px 30px;      // atas 50 ; kanankiri 20 ; bawah 30
+        - margin : 50px 40px 30px 20px; // atas 50 ; lanjut searah jarum jam
+        ...
+
+2. BORDER   : area transparan didalam kotak
+    - MEMENGARUHI DIMENSI BOX
+    - border : width style color;
+        - style = solid, dotted, dashed, double
+    - border : 3px solid red;
+3. PADDING  : batas disekeliling content dan padding
+    - MEMENGARUHI DIMENSI BOX
+    - sama seperti margin
+    - TAPI tidak memiliki negative padding
+    ...
+4. CONTENT  : isi box
+    ...
+
+##= BOX-SIZING
+    - 
+    width : 500px;
+    margin : 20px auto;
+    box-sizing : border-box;    // menjaga ukuran box tetap 500px 
+                                // walaupun ditambah style border dan padding lagi dibawahnya.
+
+#== CSS RESET
+- untuk mereset nilai default dari property suatu elemen
+- misal : body memiliki nilai default margin : 10px;
+- maka  : untuk mereset nilai tersebut lakukan :
+            body {
+                margin : 0;
+            }
+- fungsi :  untuk memberikan kendali penuh pada halaman css yang kita buat.
+            supaya semua style yang muncul sesuai dengan apa yang kita tulis saja.
+
+#== FLOAT
+- 
+
+
