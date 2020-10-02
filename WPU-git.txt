@@ -1,7 +1,9 @@
-ZULL JANCUK
+
 
 github  : bootfade
 git     :
+
+clone all branch in local : https://stackoverflow.com/questions/67699/how-to-clone-all-remote-branches-in-git#:~:text=A%20git%20clone%20is%20supposed,%22%2C%20use%20git%20checkout%20foo%20.
 
 // DAFTAR PERTANYAAN
 - fetch
